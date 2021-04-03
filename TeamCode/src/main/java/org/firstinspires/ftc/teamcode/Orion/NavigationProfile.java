@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.control.PIDCoefficients;
 
 public class NavigationProfile
 {
-    //Drive Constants
+    /*//Drive Constants
     public static final double TICKS_PER_REV_ = 8192;
     public static final double MAX_RPM = 160;
     public static final boolean RUN_USING_ENCODER = false;
@@ -50,7 +50,7 @@ public class NavigationProfile
     public static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     public static final String LABEL_FIRST_ELEMENT = "Quad";
     public static final String LABEL_SECOND_ELEMENT = "Single";
-    public static float cameraXOffset = -400;
+    public static float cameraXOffset = -400;*/
 
     public NavigationProfile(){
 
