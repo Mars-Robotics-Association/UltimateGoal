@@ -55,10 +55,18 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
         controllerInput2.Loop();
 
         if(!busy) {
-            ManageDrivingRoadrunner();
+            //Manage driving
+            if(control.isUSE_NAVIGATOR()) ManageDrivingRoadrunner();
+            else ManageDriveMovementCustom();
+
+            control.IntakeLoop(); //loop the intake
         }
-        control.GetOrion().PrintVuforiaTelemetry(0);
-        control.GetOrion().PrintTensorflowTelemetry();
+        //print telemetry
+        if(control.isUSE_NAVIGATOR()) {
+            control.GetOrion().PrintVuforiaTelemetry(0);
+            control.GetOrion().PrintTensorflowTelemetry();
+        }
+
         telemetry.update();
     }
 
@@ -154,17 +162,16 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void LBPressed(double controllerNumber) {
-        //if(controllerNumber == payloadControllerNumber) control.AlignAndShoot();
     }
 
     @Override
     public void RBPressed(double controllerNumber) {
-
+        if(controllerNumber == payloadControllerNumber) control.ToggleShooterMotors();
     }
 
     @Override
     public void LTPressed(double controllerNumber) {
-
+        if(controllerNumber == payloadControllerNumber) control.ToggleIntaking();
     }
 
     @Override
@@ -179,19 +186,17 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void RBHeld(double controllerNumber) {
-        if(controllerNumber == payloadControllerNumber) control.ShooterOn();
+
     }
 
     @Override
     public void LTHeld(double controllerNumber) {
-        if(controllerNumber == payloadControllerNumber) control.Intake();
+
     }
 
     @Override
     public void RTHeld(double controllerNumber) {
-        if(controllerNumber == payloadControllerNumber){
-            //control.LoadStarpath();
-        }
+
     }
 
     @Override
@@ -201,19 +206,15 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void RBReleased(double controllerNumber) {
-        if(controllerNumber == payloadControllerNumber) control.ShooterOff();
     }
 
     @Override
     public void LTReleased(double controllerNumber) {
-        if(controllerNumber == payloadControllerNumber) control.StopIntake();
     }
 
     @Override
     public void RTReleased(double controllerNumber) {
-        if(controllerNumber == payloadControllerNumber){
-            //control.StopLoadStarpath();
-        }
+
     }
 
     @Override
@@ -287,7 +288,8 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void RJSPressed(double controllerNumber) {
-
+        if(payloadControllerNumber == 1) payloadControllerNumber = 2;
+        else payloadControllerNumber = 1;
     }
 
     @Override

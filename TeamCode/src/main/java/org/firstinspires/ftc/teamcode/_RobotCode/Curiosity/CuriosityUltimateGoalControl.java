@@ -24,7 +24,7 @@ public class CuriosityUltimateGoalControl extends MecanumBaseControl
 {
     ////Dependencies////
     //Mechanical Components
-    private CuriosityPayloadController shooterIntake;
+    private CuriosityPayloadController payload;
 
     ////Variables////
     //Calibration
@@ -49,14 +49,11 @@ public class CuriosityUltimateGoalControl extends MecanumBaseControl
             DcMotor shooterMotor2 = currentOpMode.hardwareMap.dcMotor.get("SM2");
             Servo intakeServo1 = currentOpMode.hardwareMap.servo.get("intakeServo1");
             Servo intakeServo2 = currentOpMode.hardwareMap.servo.get("intakeServo2");
-            Servo loaderServo = currentOpMode.hardwareMap.servo.get("loaderServo");
             Servo starpathServo = currentOpMode.hardwareMap.servo.get("starpathServo");
-            Servo bootServo = currentOpMode.hardwareMap.servo.get("bootServo");
 
             DistanceSensor intakeSensor = currentOpMode.hardwareMap.get(Rev2mDistanceSensor.class, "intake sensor");
 
-            shooterIntake = new CuriosityPayloadController();
-            shooterIntake.Init(currentOpMode, new DcMotor[]{shooterMotor1, shooterMotor2}, intakeServo1, intakeServo2, bootServo, starpathServo, loaderServo, intakeSensor);
+            payload = new CuriosityPayloadController(currentOpMode, new DcMotor[]{shooterMotor1, shooterMotor2}, intakeServo1, intakeServo2, starpathServo, intakeSensor);
         }
 
         //TODO ===INIT CORE ROBOT===
@@ -71,16 +68,10 @@ public class CuriosityUltimateGoalControl extends MecanumBaseControl
     }
 
     //CALLABLE METHODS//
-    public void ShootOne(){shooterIntake.ShootOne();}
+    public void ShootOne(){ payload.ShootOne();}
 
     public void ShootRoutine(){
-        double startTime = currentOpMode.getRuntime();
-        ShooterOn();
-        while (currentOpMode.getRuntime() < startTime+2){
-            currentOpMode.telemetry.addLine("spinning up");
-            currentOpMode.telemetry.update();
-        }
-        ShootThree();
+        //TODO: fill in
     }
 
     public void AlignAndShoot(){
@@ -89,25 +80,24 @@ public class CuriosityUltimateGoalControl extends MecanumBaseControl
         ShootThree();
     }
 
-    public void ShootThree(){shooterIntake.ShootThree();}
-    public void StopShootThree(){shooterIntake.StopShooting();}
+    public void ShootThree(){ payload.ShootThree();}
+    public void StopShootThree(){ payload.StopShooter();}
 
-    //public void ShootAsync(){shooterIntake.ShootAsync();}
-    //public void StopShootAsync(){shooterIntake.StopShootAsync();}
+    public void ShooterOn(){ payload.ShooterOn();}
+    public void ShooterOff(){ payload.ShooterOff();}
+    public void ToggleShooterMotors(){payload.ToggleShooterMotors();}
 
-    public void ShooterOn(){shooterIntake.ShooterOn();}
-    public void ShooterOff(){shooterIntake.ShooterOff();}
+    public void ModifyForPowerShot(){ payload.ModifyForPowerShot();}
+    public void StopModifyForPowerShot(){ payload.StopModifyForPowerShot();}
 
-    public void ModifyForPowerShot(){shooterIntake.ModifyForPowerShot();}
-    public void StopModifyForPowerShot(){shooterIntake.StopModifyForPowerShot();}
+    public void IntakeOn(){ payload.IntakeOn();}
+    public void IntakeLoop(){ payload.IntakeLoop();}
+    public void StopIntake(){ payload.IntakeOff();}
+    public void ToggleIntaking(){payload.ToggleIntaking();}
 
-    public void Intake(){shooterIntake.Intake();}
-    public void StopIntake(){shooterIntake.StopIntake();}
-    //public void LoadStarpath(){shooterIntake.LoadFromIntake();}
-    //public void StopLoadStarpath(){shooterIntake.StopLoadFromIntake();}
-    public void RotateStarpathToNextPos(){shooterIntake.RotateStarpathToNextPos();}
-    public void RotateStarpathToPreviousPos(){shooterIntake.RotateStarpathToPreviousPos();}
-    public void StarpathToShooter(){shooterIntake.StarPathToShooter();}
-    public void StarpathToIntake(){shooterIntake.StarpathToIntake();}
-    public boolean IsShooterRunning(){return shooterIntake.shooterRunning;}
+    public void RotateStarpathToNextPos(){ payload.RotateStarpathToNextPos();}
+    public void RotateStarpathToPreviousPos(){ payload.RotateStarpathToPreviousPos();}
+    public void StarpathToShooter(){ payload.StarPathToShooter();}
+    public void StarpathToIntake(){ payload.StarpathToIntake();}
+    public void StarpathToStorage(){payload.StarpathToStorage();}
 }
