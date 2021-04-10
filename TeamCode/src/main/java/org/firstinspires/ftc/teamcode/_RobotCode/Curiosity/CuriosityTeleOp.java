@@ -116,6 +116,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     @Override
     public void XPressed(double controllerNumber) {
         control.ResetGyro();
+        control.GetOrion().SetPose(0,0,0);
     }
 
     @Override
@@ -288,8 +289,9 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void RJSPressed(double controllerNumber) {
-        if(payloadControllerNumber == 1) payloadControllerNumber = 2;
-        else payloadControllerNumber = 1;
+        /*if(payloadControllerNumber == 1) payloadControllerNumber = 2;
+        else payloadControllerNumber = 1;*/
+        if(controllerNumber == 1) control.TurnToZero();
     }
 
     @Override

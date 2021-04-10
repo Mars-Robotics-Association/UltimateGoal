@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode._RobotCode.Curiosity;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -7,15 +8,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-class CuriosityPayloadController
+@Config
+public class CuriosityPayloadController
 {
     ////CALIBRATION////
     //Starpath
-    public static double starpathIntakePosition = 0.01;
-    public static double starpathIntervalIntake = 0.095;
-    public static double starpathIntervalShooter = 0.08;
-    public static double starpathShooterPosition = 0.24;
-    public static double starpathStoragePosition = 0.22;
+    public static double starpathIntakePosition = 0.0;
+    public static double starpathIntervalIntake = 0.075;
+    public static double starpathIntervalShooter = 0.066;
+    public static double starpathShooterPosition = 0.244;
+    public static double starpathStoragePosition = 0.21;
 
     //Shooter
     public static double shooterSpeedMultiplier = -1;

@@ -7,6 +7,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.localization.ThreeTrackingWheelLocalizer;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.Orion.NavigationProfile;
 import org.firstinspires.ftc.teamcode.util.Encoder;
 
 import java.util.Arrays;
@@ -46,6 +48,7 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     public static String FRONT_ENCODER_NAME = "RR";
 
     private Encoder leftEncoder, rightEncoder, frontEncoder;
+    private NavigationProfile navigationProfile;
 
     public StandardTrackingWheelLocalizer(HardwareMap hardwareMap) {
         super(Arrays.asList(
@@ -53,12 +56,16 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
                 new Pose2d(0, -LATERAL_DISTANCE / 2, Math.toRadians(ROT_RIGHT)), // right
                 new Pose2d(FORWARD_OFFSET, 0, Math.toRadians(ROT_FRONT)) // front
         ));
+        //navigationProfile = setNavProfile;
 
         leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, LEFT_ENCODER_NAME));
         rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, RIGHT_ENCODER_NAME));
         frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, FRONT_ENCODER_NAME));
 
         // TODO: reverse any encoders using Encoder.setDirection(Encoder.Direction.REVERSE)
+    }
+    public void Init(){
+
     }
 
     public static double encoderTicksToInches(double ticks) {

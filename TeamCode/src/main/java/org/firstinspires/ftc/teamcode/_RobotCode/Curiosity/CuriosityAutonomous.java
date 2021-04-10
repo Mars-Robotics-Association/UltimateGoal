@@ -30,6 +30,7 @@ public class CuriosityAutonomous extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        //Initialization
         control = new CuriosityUltimateGoalControl(this,true,true,true);
         control.Init();
         orion = control.GetOrion();
@@ -37,14 +38,16 @@ public class CuriosityAutonomous extends LinearOpMode {
         dashboard.setTelemetryTransmissionInterval(25);
 
         waitForStart();
-        orion.SetPose(robotX, robotY, Math.toRadians(robotH));//robot starts on blue left line
+        orion.SetPose(robotX, robotY, Math.toRadians(robotH));//robot starts on red right line
 
+        //put the starpath in the right place
         control.StarpathToShooter();
         control.RotateStarpathToPreviousPos();
 
         //Move to where it can see discs
         orion.MoveLinear(16, 8, 0);
 
+        //wait a bit for it to see discs
         sleep(200);//wait for tensorflow to detect discs
         int numberOfDiscs = orion.GetNumberOfDiscs(tfUpperLimit);//figure out where to go\
 
@@ -73,6 +76,7 @@ public class CuriosityAutonomous extends LinearOpMode {
         orion.TurnTo(180);
         HighGoalRoutine();
 
+        //Move to next wobble goal
         orion.MoveLinear(40, -4, 0);
         orion.MoveLinear(4, 4, 0);
         orion.MoveLinear(1, 26, 0);

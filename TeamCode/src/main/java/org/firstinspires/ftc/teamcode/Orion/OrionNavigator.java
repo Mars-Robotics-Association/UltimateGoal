@@ -23,11 +23,11 @@ public class OrionNavigator
     //TODO ====REFERENCES====
     private RoadrunnerControl rr;
     private VuMarkNavigation vuforiaFront;
-    private VuMarkNavigation vuforiaBack;
     private TensorFlowObjectDetector tf;
     private RobotTransformSystem cs;
     private MecanumBaseControl control;
     private OpMode opMode;
+    private NavigationProfile navigationProfile;
 
     //TODO ====VARIABLES====
     private double tfDistCoefficient = 1;
@@ -41,6 +41,7 @@ public class OrionNavigator
     public OrionNavigator(OpMode setOpMode, MecanumBaseControl setControl){
         opMode = setOpMode;
         control = setControl;
+        //navigationProfile = setNavProfile;
     }
 
     public void Init(){
@@ -49,10 +50,8 @@ public class OrionNavigator
             rr.Init();
         }
         vuforiaFront = new VuMarkNavigation(opMode, "Webcam 1");
-        //vuforiaBack = new VuMarkNavigation(opMode, "Webcam 2");
         tf = new TensorFlowObjectDetector(opMode, vuforiaFront.GetVuforia(), new double[]{0,0,0});
         cs = new RobotTransformSystem(0,0,0);
-        //sa = new DemobotSensorArray(opMode);
     }
 
     //TODO ====SIMPLE METHODS====

@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.teamcode.Orion.NavigationProfile;
 import org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.util.DashboardUtil;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
@@ -88,6 +89,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private FtcDashboard dashboard;
     private NanoClock clock;
+    private NavigationProfile navigationProfile;
 
     private Mode mode;
 
@@ -111,6 +113,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
+        //navigationProfile = setNavProfile;
 
         dashboard = FtcDashboard.getInstance();
         dashboard.setTelemetryTransmissionInterval(25);

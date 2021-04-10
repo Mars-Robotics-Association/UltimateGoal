@@ -5,15 +5,18 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.Orion.NavigationProfile;
 import org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.SampleMecanumDrive;
 
 public class RoadrunnerControl
 {
     private OpMode opMode;
     private SampleMecanumDrive drive;
+    private NavigationProfile navigationProfile;
 
     public RoadrunnerControl(OpMode setOpMode){
         opMode = setOpMode;
+        //navigationProfile = setNavProfile;
     }
 
     public void Init(){
