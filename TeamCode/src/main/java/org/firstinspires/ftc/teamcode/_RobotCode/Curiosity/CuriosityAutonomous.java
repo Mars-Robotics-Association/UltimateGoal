@@ -41,11 +41,10 @@ public class CuriosityAutonomous extends LinearOpMode {
         orion.SetPose(robotX, robotY, Math.toRadians(robotH));//robot starts on red right line
 
         //put the starpath in the right place
-        control.StarpathToShooter();
-        control.RotateStarpathToPreviousPos();
+        control.StarpathToStorage();
 
         //Move to where it can see discs
-        orion.MoveLinear(16, 8, 0);
+        orion.MoveLinear(18, 4, 0);
 
         //wait a bit for it to see discs
         sleep(200);//wait for tensorflow to detect discs
@@ -57,36 +56,45 @@ public class CuriosityAutonomous extends LinearOpMode {
         if(numberOfDiscs == 0){ //A
             //deposit wobble goal
             orion.MoveLinear(68, -6, 0);
-            orion.MoveLinear(60, -6, 0);
         }
         else if(numberOfDiscs > 0 && numberOfDiscs < 3){ //B
             //spline to B, deposit
             orion.MoveSpline(88, 12, 0, true);
-            orion.MoveLinear(80, 12, 0);
         }
         else { //C
             //keep going forwards, deposit
             orion.MoveLinear(110, -8, 0);
-            orion.MoveLinear(102, -8, 0);
         }
 
         //Line up for high goal
+        control.ShooterOff();
         control.ShooterOn();
-        orion.MoveLinear(60, 18, 0);
+        orion.MoveLinear(55, 20, 0);
         orion.TurnTo(180);
-        HighGoalRoutine();
+        control.ShootThree();
 
         //Move to next wobble goal
-        orion.MoveLinear(40, -4, 0);
-        orion.MoveLinear(4, 4, 0);
-        orion.MoveLinear(1, 26, 0);
+        orion.MoveLinear(55, -4, 0);
+        orion.MoveLinear(12, 4, 0);
+        orion.TurnTo(270);
+        orion.MoveLinear(24, 30, 0);
 
-        orion.MoveSpline(40, 32, 0, true);
+        //Spine movement
+        orion.MoveSpline(30, 45, -30, true);
+        orion.TurnTo(180);
+        orion.MoveSpline(60, 20, 0, true);
+
+
+        /*orion.MoveLinear(55, -4, 0);
+        orion.MoveLinear(1, 4, 0);
+        orion.MoveLinear(0, 26, 0);
+
+        orion.MoveSpline(40, 32, 0, true);*/
 
         if(numberOfDiscs == 0){ //A
             //deposit wobble goal
-            orion.MoveSpline(60, -6, -45, true);
-            orion.MoveLinear(55, -6, 0);
+            orion.MoveSpline(65, -6, -45, true);
+            orion.MoveLinear(60, -6, 0);
         }
         else if(numberOfDiscs > 0 && numberOfDiscs < 3){ //B
             //spline to B, deposit
@@ -99,7 +107,7 @@ public class CuriosityAutonomous extends LinearOpMode {
             orion.MoveLinear(97, -8, 0);
         }
 
-        orion.MoveLinear(65, 0, 0);
+        orion.MoveLinear(70, 0, 0);
     }
 
     private void HighGoalRoutine(){

@@ -14,19 +14,20 @@ public class CuriosityPayloadController
     ////CALIBRATION////
     //Starpath
     public static double starpathIntakePosition = 0.0;
-    public static double starpathIntervalIntake = 0.075;
-    public static double starpathIntervalShooter = 0.066;
-    public static double starpathShooterPosition = 0.244;
-    public static double starpathStoragePosition = 0.21;
+    public static double starpathIntervalIntake = 0.078;
+    public static double starpathIntervalShooter = 0.072;
+    public static double starpathShooterPosition = 0.237;
+    public static double starpathStoragePosition = 0.2;
 
     //Shooter
     public static double shooterSpeedMultiplier = -1;
     public static double powerShotSpeedMultiplier = 0.9;
-    public static double timeToShoot = 0.5;
-    public static double timeInitialSpinup = 2;
+    public static double timeToShoot = 0.7;
+    public static double timeInitialSpinup = 1;
 
     //Auto Intake
-    public static double autoIntakeDistanceCM = 10;
+    public static double autoIntakeDistanceCM = 4;
+    public static double autoIntakeCooldown = 2;
     public static boolean autoIntakeEnabled = false;
 
     ////DEPENDENCIES////
@@ -47,9 +48,11 @@ public class CuriosityPayloadController
 
     ////PRIVATE////
     private int starpathPosition = 0; //starts at 0, 3 is to the shooter, 5 is max
-    private boolean discDetectedInIntake = false;
 
+    private boolean discDetectedInIntake = false;
+    private double lastAutoIntakeTime = 0;
     private boolean intakeRunning = false;
+
     private boolean shootRoutineRunning = false;
     private boolean shooterMotorsRunning = false;
     private boolean stopShooterOverride = false;
@@ -141,6 +144,9 @@ public class CuriosityPayloadController
 
         //fire
         RotateStarpathToNextPos();
+
+        //Stop Shooter
+        StopShooter();
     }
     public void StopShooter(){
         shootRoutineRunning = false;
@@ -211,11 +217,18 @@ public class CuriosityPayloadController
         if(!intakeRunning) return;
 
         //Manages auto-intaking
-        if(intakeDetector.getDistance(DistanceUnit.CM) < autoIntakeDistanceCM && !discDetectedInIntake){ //if hasn't previously detected a disc, move starpath
-            if(starpathPosition < 2 && autoIntakeEnabled) StarpathAddIntervalIntake();
-            discDetectedInIntake = true;
+        boolean discInIntake = intakeDetector.getDistance(DistanceUnit.CM) < autoIntakeDistanceCM;
+        boolean cooldownDone = lastAutoIntakeTime + autoIntakeCooldown < currentOpmode.getRuntime();
+        if(starpathPosition < 3 && autoIntakeEnabled && discInIntake && cooldownDone){ //if hasn't previously detected a disc, move starpath
+            RotateStarpathToNextPos();
+            lastAutoIntakeTime = currentOpmode.getRuntime();
+
+           /* if(starpathPosition < 2 && autoIntakeEnabled){
+
+            }*/
+            //discDetectedInIntake = true;
         }
-        if (!(intakeDetector.getDistance(DistanceUnit.CM) < autoIntakeDistanceCM)) discDetectedInIntake = false; //if a disc isn't detected
+        //if (!(intakeDetector.getDistance(DistanceUnit.CM) < autoIntakeDistanceCM)) discDetectedInIntake = false; //if a disc isn't detected
 
         if(starpathPosition >= 4) {//if in storage or shoot position, don't intake to prevent jams
             IntakeOff();

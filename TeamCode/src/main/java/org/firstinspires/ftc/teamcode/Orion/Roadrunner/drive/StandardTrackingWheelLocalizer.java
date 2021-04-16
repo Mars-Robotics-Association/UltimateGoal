@@ -40,8 +40,8 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     public static double Y_MULTIPLIER = 1.0; // Multiplier in the Y direction
 
     public static double ROT_LEFT = 180.0;
-    public static double ROT_RIGHT = 0.0;
-    public static double ROT_FRONT = 90.0;
+    public static double ROT_RIGHT = 180.0;
+    public static double ROT_FRONT = 270.0;
 
     public static String LEFT_ENCODER_NAME = "FL";
     public static String RIGHT_ENCODER_NAME = "FR";
