@@ -115,13 +115,17 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void XPressed(double controllerNumber) {
+        //Reset gyro and home position
         control.ResetGyro();
-        control.GetOrion().SetPose(0,0,0);
+        control.SetHome();
     }
 
     @Override
     public void YPressed(double controllerNumber) {
-        if(controllerNumber== payloadControllerNumber) control.ShootThree();
+        if(controllerNumber== payloadControllerNumber) {
+            control.ShootThree();
+            control.SetHome();
+        }
     }
 
     @Override
@@ -284,7 +288,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void LJSPressed(double controllerNumber) {
-        if(controllerNumber == 1) control.SwitchHeadlessMode();
+        if(controllerNumber == 1) control.GoToHome();
     }
 
     @Override

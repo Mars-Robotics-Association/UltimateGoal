@@ -15,9 +15,9 @@ public class CuriosityPayloadController
     //Starpath
     public static double starpathIntakePosition = 0.0;
     public static double starpathIntervalIntake = 0.078;
-    public static double starpathIntervalShooter = 0.072;
-    public static double starpathShooterPosition = 0.237;
-    public static double starpathStoragePosition = 0.2;
+    public static double starpathIntervalShooter = 0.07;
+    public static double starpathShooterPosition = 0.23;
+    public static double starpathStoragePosition = 0.19;
 
     //Shooter
     public static double shooterSpeedMultiplier = -1;
@@ -26,9 +26,9 @@ public class CuriosityPayloadController
     public static double timeInitialSpinup = 1;
 
     //Auto Intake
-    public static double autoIntakeDistanceCM = 4;
+    public static double autoIntakeDistanceCM = 5;
     public static double autoIntakeCooldown = 2;
-    public static boolean autoIntakeEnabled = false;
+    public static boolean autoIntakeEnabled = true;
 
     ////DEPENDENCIES////
     private OpMode currentOpmode;

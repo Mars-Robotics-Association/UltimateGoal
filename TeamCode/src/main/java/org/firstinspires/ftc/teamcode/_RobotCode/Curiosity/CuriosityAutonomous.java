@@ -73,7 +73,7 @@ public class CuriosityAutonomous extends LinearOpMode {
         orion.TurnTo(180);
         control.ShootThree();
 
-        //Move to next wobble goal
+        /*//Move to next wobble goal
         orion.MoveLinear(55, -4, 0);
         orion.MoveLinear(12, 4, 0);
         orion.TurnTo(270);
@@ -82,14 +82,15 @@ public class CuriosityAutonomous extends LinearOpMode {
         //Spine movement
         orion.MoveSpline(30, 45, -30, true);
         orion.TurnTo(180);
-        orion.MoveSpline(60, 20, 0, true);
+        orion.MoveSpline(60, 20, 0, true);*/
 
 
-        /*orion.MoveLinear(55, -4, 0);
+        orion.MoveLinear(55, -4, 0);
         orion.MoveLinear(1, 4, 0);
+        orion.MoveLinear(1, 16, 0);
         orion.MoveLinear(0, 26, 0);
 
-        orion.MoveSpline(40, 32, 0, true);*/
+        orion.MoveSpline(40, 32, 0, true);
 
         if(numberOfDiscs == 0){ //A
             //deposit wobble goal

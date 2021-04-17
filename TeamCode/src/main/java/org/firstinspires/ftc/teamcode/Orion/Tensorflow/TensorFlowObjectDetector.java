@@ -46,6 +46,7 @@ public class TensorFlowObjectDetector
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
     private static float cameraXOffset = -400;
+    private static double zoom = 2;
 
     //TODO: calibrate!
     private float cameraDistanceVar = 1;
@@ -79,9 +80,10 @@ public class TensorFlowObjectDetector
         int tfodMonitorViewId = opMode.hardwareMap.appContext.getResources().getIdentifier(
             "tfodMonitorViewId", "id", opMode.hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-       tfodParameters.minimumConfidence = 0.8;
-       tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-       tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+        tfodParameters.minResultConfidence = 0.8f;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+        tfod.setZoom(zoom, 16.0/9.0);
     }
 
     //Shuts down tensorflow
