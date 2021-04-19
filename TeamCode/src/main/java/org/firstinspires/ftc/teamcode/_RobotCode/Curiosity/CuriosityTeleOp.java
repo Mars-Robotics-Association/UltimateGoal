@@ -26,7 +26,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     private boolean busy = false;
     private double turnOffset = 0;
 
-    public static int payloadControllerNumber = 2;
+    public static int payloadControllerNumber = 1;
 
     @Override
     public void init() {
@@ -167,6 +167,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void LBPressed(double controllerNumber) {
+        if(controllerNumber == 1) control.GetOrion().Turn(Math.toRadians(180)); //turn 180 degrees
     }
 
     @Override

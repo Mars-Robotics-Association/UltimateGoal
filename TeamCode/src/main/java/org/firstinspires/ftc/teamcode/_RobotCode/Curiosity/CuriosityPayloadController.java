@@ -202,7 +202,7 @@ public class CuriosityPayloadController
 
     //Intake
     public void IntakeOn(){
-        if(starpathPosition >= 4) {//if in storage or shoot position, don't intake to prevent jams
+        if(starpathPosition >= 3) {//if in storage or shoot position, don't intake to prevent jams
             IntakeOff();
             return;
         }

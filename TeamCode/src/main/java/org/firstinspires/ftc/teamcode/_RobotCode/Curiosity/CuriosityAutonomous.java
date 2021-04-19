@@ -88,27 +88,30 @@ public class CuriosityAutonomous extends LinearOpMode {
         orion.MoveLinear(55, -4, 0);
         orion.MoveLinear(1, 4, 0);
         orion.MoveLinear(1, 16, 0);
-        orion.MoveLinear(0, 26, 0);
+        orion.MoveLinear(0, 24, 0);
 
         orion.MoveSpline(40, 32, 0, true);
 
         if(numberOfDiscs == 0){ //A
             //deposit wobble goal
-            orion.MoveSpline(65, -6, -45, true);
-            orion.MoveLinear(60, -6, 0);
+            orion.MoveSpline(65, 0, -45, true);
+            orion.MoveLinear(60, 0, 0);
+            orion.MoveLinear(70, 5, 0);
         }
         else if(numberOfDiscs > 0 && numberOfDiscs < 3){ //B
             //spline to B, deposit
             orion.MoveSpline(80, 12, 0, true);
             orion.MoveLinear(75, 12, 0);
+            orion.MoveLinear(70, 0, 0);
         }
         else { //C
             //keep going forwards, deposit
             orion.MoveSpline(102, -8, 0, true);
             orion.MoveLinear(97, -8, 0);
+            orion.MoveLinear(70, 0, 0);
         }
 
-        orion.MoveLinear(70, 0, 0);
+
     }
 
     private void HighGoalRoutine(){
