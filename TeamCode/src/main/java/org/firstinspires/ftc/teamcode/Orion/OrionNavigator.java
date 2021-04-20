@@ -54,6 +54,10 @@ public class OrionNavigator
         cs = new RobotTransformSystem(0,0,0);
     }
 
+    public void Update(){
+        rr.Update();
+    }
+
     //TODO ====SIMPLE METHODS====
     public void Turn(double angle){rr.Turn(angle);}
     public void MoveSpline(double x, double y, double tangent, boolean reverse){rr.MoveSpline(x,y,tangent, reverse);}

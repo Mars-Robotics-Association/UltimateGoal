@@ -43,12 +43,12 @@ public class CuriosityAutonomous extends LinearOpMode {
         //put the starpath in the right place
         control.StarpathToStorage();
 
-        //Move to where it can see discs
-        orion.MoveLinear(18, 4, 0);
-
         //wait a bit for it to see discs
-        sleep(200);//wait for tensorflow to detect discs
+        sleep(500);//wait for tensorflow to detect discs
         int numberOfDiscs = orion.GetNumberOfDiscs(tfUpperLimit);//figure out where to go\
+
+/*        //Move to where it can see discs
+        orion.MoveLinear(18, 4, 0);*/
 
         //Go near square A
         orion.MoveSpline(40, 0, 0, true);

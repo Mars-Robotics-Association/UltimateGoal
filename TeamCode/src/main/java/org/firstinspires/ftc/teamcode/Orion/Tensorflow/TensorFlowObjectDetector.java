@@ -46,7 +46,7 @@ public class TensorFlowObjectDetector
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
     private static float cameraXOffset = -400;
-    private static double zoom = 1.5;
+    public static double zoom = 2;
 
     //TODO: calibrate!
     private float cameraDistanceVar = 1;

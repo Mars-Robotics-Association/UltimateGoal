@@ -22,6 +22,7 @@ public class RoadrunnerControl
     public void Init(){
         drive = new SampleMecanumDrive(opMode.hardwareMap);
     }
+    public void Update(){drive.update();}
 
     public void MoveSpline(double x, double y, double tangent, boolean reverse){ //moves using fancy splines
         Trajectory traj = drive.trajectoryBuilder(GetCurrentPose(), reverse)

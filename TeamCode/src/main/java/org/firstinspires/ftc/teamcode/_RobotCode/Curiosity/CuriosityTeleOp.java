@@ -54,6 +54,8 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
         controllerInput1.Loop();
         controllerInput2.Loop();
 
+        control.Update();
+
         if(!busy) {
             //Manage driving
             if(control.isUSE_NAVIGATOR()) ManageDrivingRoadrunner();
@@ -123,6 +125,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     @Override
     public void YPressed(double controllerNumber) {
         if(controllerNumber== payloadControllerNumber) {
+            control.SetHome();
             control.ShootThree();
             control.SetHome();
         }
@@ -167,7 +170,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void LBPressed(double controllerNumber) {
-        if(controllerNumber == 1) control.GetOrion().Turn(Math.toRadians(180)); //turn 180 degrees
+        if(controllerNumber == 1) control.GetOrion().Turn(180); //turn 180 degrees
     }
 
     @Override
@@ -182,7 +185,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void RTPressed(double controllerNumber) {
-
+        if(controllerNumber == 1) speedMultiplier = 0.25;
     }
 
     @Override
@@ -220,7 +223,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void RTReleased(double controllerNumber) {
-
+        if(controllerNumber == 1) speedMultiplier = 1;
     }
 
     @Override

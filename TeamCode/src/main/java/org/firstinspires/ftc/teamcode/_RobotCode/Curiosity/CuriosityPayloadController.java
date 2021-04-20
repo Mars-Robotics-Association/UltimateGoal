@@ -21,7 +21,7 @@ public class CuriosityPayloadController
 
     //Shooter
     public static double shooterSpeedMultiplier = -1;
-    public static double powerShotSpeedMultiplier = 0.9;
+    public static double powerShotSpeedMultiplier = 0.85;
     public static double timeToShoot = 0.7;
     public static double timeInitialSpinup = 1;
 
@@ -202,7 +202,7 @@ public class CuriosityPayloadController
 
     //Intake
     public void IntakeOn(){
-        if(starpathPosition >= 3) {//if in storage or shoot position, don't intake to prevent jams
+        if(starpathPosition >= 2) {//if in storage or shoot position, don't intake to prevent jams
             IntakeOff();
             return;
         }

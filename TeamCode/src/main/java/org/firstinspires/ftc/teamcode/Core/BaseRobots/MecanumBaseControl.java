@@ -92,6 +92,12 @@ public class MecanumBaseControl
         imu.ResetGyro();
     }
 
+    //TODO: Call this on Loop()
+    public void Update(){
+
+        if(isUSE_NAVIGATOR()) orion.Update();
+    }
+
     //TODO: UNIVERSAL PUBLIC METHODS
     public void RawDrive(double inputAngle, double speed, double turnOffset){
         double finalAngle = inputAngle;
