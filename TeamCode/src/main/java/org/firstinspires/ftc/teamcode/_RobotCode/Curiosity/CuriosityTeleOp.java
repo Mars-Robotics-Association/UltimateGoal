@@ -69,6 +69,10 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
             control.GetOrion().PrintTensorflowTelemetry();
         }
 
+        telemetry.addLine("*TELEOP DATA*");
+        telemetry.addData("Speed Modifier", speedMultiplier);
+        telemetry.addData("Payload Controller", payloadControllerNumber);
+
         telemetry.update();
     }
 
@@ -110,9 +114,10 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void BPressed(double controllerNumber) {
-        if(controllerNumber == payloadControllerNumber){
+        /*if(controllerNumber == payloadControllerNumber){
             control.ModifyForPowerShot();
-        }
+        }*/
+        control.ModifyForPowerShot();
     }
 
     @Override
@@ -124,7 +129,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void YPressed(double controllerNumber) {
-        if(controllerNumber== payloadControllerNumber) {
+        if(controllerNumber == payloadControllerNumber) {
             control.SetHome();
             control.ShootThree();
             control.SetHome();
@@ -293,6 +298,10 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     @Override
     public void LJSPressed(double controllerNumber) {
         if(controllerNumber == 1) control.GoToHome();
+        if(controllerNumber == 2) { //switch payload controllers at runtime
+            if(payloadControllerNumber == 1) payloadControllerNumber = 2;
+            else payloadControllerNumber = 1;
+        }
     }
 
     @Override

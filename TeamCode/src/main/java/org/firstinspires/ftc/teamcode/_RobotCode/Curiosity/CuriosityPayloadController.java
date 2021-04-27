@@ -17,7 +17,7 @@ public class CuriosityPayloadController
     public static double starpathIntervalIntake = 0.078;
     public static double starpathIntervalShooter = 0.07;
     public static double starpathShooterPosition = 0.23;
-    public static double starpathStoragePosition = 0.19;
+    public static double starpathStoragePosition = 0.21;
 
     //Shooter
     public static double shooterSpeedMultiplier = -1;
@@ -27,7 +27,7 @@ public class CuriosityPayloadController
 
     //Auto Intake
     public static double autoIntakeDistanceCM = 5;
-    public static double autoIntakeCooldown = 2;
+    public static double autoIntakeCooldown = 1;
     public static boolean autoIntakeEnabled = true;
 
     ////DEPENDENCIES////
@@ -118,7 +118,9 @@ public class CuriosityPayloadController
         ShooterOn();
 
         ShootOne();
-        StopShooter(); //Stop at end
+        //StopShooter(); //Stop at end
+        shootRoutineRunning = false;
+        ShooterOn();
     }
     public void ShootOne(){
         stopShooterOverride = false;
@@ -202,6 +204,7 @@ public class CuriosityPayloadController
 
     //Intake
     public void IntakeOn(){
+        if(starpathPosition == 6) StarpathToIntake();
         if(starpathPosition >= 2) {//if in storage or shoot position, don't intake to prevent jams
             IntakeOff();
             return;
