@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.SampleMecanumDrive;
 
 import java.util.Objects;
 
-import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.maxAccel;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.maxVel;
 import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.RUN_USING_ENCODER;
 import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.kA;
 import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.kStatic;
@@ -58,7 +58,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
     private static MotionProfile generateProfile(boolean movingForward) {
         MotionState start = new MotionState(movingForward ? 0 : DISTANCE, 0, 0, 0);
         MotionState goal = new MotionState(movingForward ? DISTANCE : 0, 0, 0, 0);
-        return MotionProfileGenerator.generateSimpleMotionProfile(start, goal, MAX_VEL, MAX_ACCEL);
+        return MotionProfileGenerator.generateSimpleMotionProfile(start, goal, maxVel(), maxAccel());
     }
 
     @Override

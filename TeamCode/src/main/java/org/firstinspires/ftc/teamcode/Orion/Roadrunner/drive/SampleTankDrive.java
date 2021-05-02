@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.drive;
+package org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive;
 
 import androidx.annotation.NonNull;
 
@@ -41,10 +41,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.maxAccel;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.maxAngAccel;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.maxAngVel;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.maxVel;
 import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MOTOR_VELO_PID;
 import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.RUN_USING_ENCODER;
 import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.TRACK_WIDTH;
@@ -105,10 +105,10 @@ public class SampleTankDrive extends TankDrive {
         turnController.setInputBounds(0, 2 * Math.PI);
 
         velConstraint = new MinVelocityConstraint(Arrays.asList(
-                new AngularVelocityConstraint(MAX_ANG_VEL),
-                new TankVelocityConstraint(MAX_VEL, TRACK_WIDTH)
+                new AngularVelocityConstraint(maxAngVel()),
+                new TankVelocityConstraint(maxVel(), TRACK_WIDTH)
         ));
-        accelConstraint = new ProfileAccelerationConstraint(MAX_ACCEL);
+        accelConstraint = new ProfileAccelerationConstraint(maxAccel());
         follower = new TankPIDVAFollower(AXIAL_PID, CROSS_TRACK_PID,
                 new Pose2d(0.5, 0.5, Math.toRadians(5.0)), 0.5);
 
@@ -181,8 +181,8 @@ public class SampleTankDrive extends TankDrive {
         turnProfile = MotionProfileGenerator.generateSimpleMotionProfile(
                 new MotionState(heading, 0, 0, 0),
                 new MotionState(heading + angle, 0, 0, 0),
-                MAX_ANG_VEL,
-                MAX_ANG_ACCEL
+                maxAngVel(),
+                maxAngAccel()
         );
         turnStart = clock.seconds();
         mode = Mode.TURN;

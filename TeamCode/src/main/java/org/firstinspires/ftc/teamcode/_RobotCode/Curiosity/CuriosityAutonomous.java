@@ -7,6 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Orion.OrionNavigator;
 
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ACCEL_MOD;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ANG_ACCEL_MOD;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ANG_VEL_MOD;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_VEL_MOD;
+
 @Config
 @Autonomous(name = "*CURIOSITY AUTO*", group = "Curiosity")
 public class CuriosityAutonomous extends LinearOpMode {
@@ -36,6 +41,14 @@ public class CuriosityAutonomous extends LinearOpMode {
         orion = control.GetOrion();
         dashboard = FtcDashboard.getInstance();
         dashboard.setTelemetryTransmissionInterval(25);
+
+        //set roadrunner speed modifiers
+        if(control.isUSE_NAVIGATOR()){
+            MAX_VEL_MOD  = 1;
+            MAX_ACCEL_MOD  = 1;
+            MAX_ANG_VEL_MOD  = 1;
+            MAX_ANG_ACCEL_MOD = 1;
+        }
 
         waitForStart();
         orion.SetPose(robotX, robotY, Math.toRadians(robotH));//robot starts on red right line

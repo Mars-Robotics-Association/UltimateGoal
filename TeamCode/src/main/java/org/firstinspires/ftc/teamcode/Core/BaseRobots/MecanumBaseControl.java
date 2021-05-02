@@ -21,7 +21,6 @@ public class MecanumBaseControl
     public static double vumarkTurnCoefficient = -0.05;
     public static int targetVumarkID = 0;
 
-    public static double[] headingPID = {0,0,0};
 
     ////Dependencies////
     //Mechanical Components
@@ -81,7 +80,7 @@ public class MecanumBaseControl
             RL = currentOpMode.hardwareMap.dcMotor.get("RL");
         }
         if(USE_CHASSIS) {
-            chassis = new MecanumChassis(imu, FR, FL, RR, RL, currentOpMode.telemetry);//Create chassis instance w/ motors
+            chassis = new MecanumChassis(imu, FR, FL, RR, RL, currentOpMode.telemetry, false, true);//Create chassis instance w/ motors
             chassis.Init();
         }
     }
@@ -101,9 +100,9 @@ public class MecanumBaseControl
     //TODO: UNIVERSAL PUBLIC METHODS
     public void RawDrive(double inputAngle, double speed, double turnOffset){
         double finalAngle = inputAngle;
-        if(headlessMode) finalAngle -= imu.GetRobotAngle();
-
-        chassis.SetHeadingPID(headingPID[0], headingPID[1], headingPID[2]);
+        if(headlessMode) finalAngle += imu.GetRobotAngle();
+        currentOpMode.telemetry.addData("ROBOT ANGLE ", imu.GetRobotAngle());
+        currentOpMode.telemetry.addData("FINAL ANGLE ", finalAngle);
 
         chassis.MoveAtAngle(finalAngle, speed, turnOffset);
     }

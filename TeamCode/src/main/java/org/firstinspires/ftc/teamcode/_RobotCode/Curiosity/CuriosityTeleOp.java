@@ -7,6 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Core.Input.ControllerInput;
 import org.firstinspires.ftc.teamcode.Core.Input.ControllerInputListener;
 
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ACCEL_MOD;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ANG_ACCEL_MOD;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_ANG_VEL_MOD;
+import static org.firstinspires.ftc.teamcode.Orion.Roadrunner.drive.DriveConstants.MAX_VEL_MOD;
+
 @TeleOp(name = "*CURIOSITY TELEOP*", group = "Curiosity")
 @Config
 public class CuriosityTeleOp extends OpMode implements ControllerInputListener
@@ -19,7 +24,13 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     ////Variables////
     //Tweaking Vars
     public static double driveSpeed = 1;//used to change how fast robot drives
-    public static double turnSpeed = 1;//used to change how fast robot turns
+    public static double turnSpeed = -1;//used to change how fast robot turns
+
+    public static double autoSpeedModifier = 2; //used to change speed of automatic navigation
+
+    public static double turnP = 0.005;
+    public static double turnI = 0.0;
+    public static double turnD = 0.01;
 
     private double speedMultiplier = 1;
 
@@ -44,6 +55,14 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
         if(control.isUSE_PAYLOAD()) control.StarpathToIntake();
 
         msStuckDetectLoop = 15000;
+
+        //set roadrunner speed modifiers
+        if(control.isUSE_NAVIGATOR()){
+            MAX_VEL_MOD  = autoSpeedModifier;
+            MAX_ACCEL_MOD  = autoSpeedModifier;
+            MAX_ANG_VEL_MOD  = autoSpeedModifier;
+            MAX_ANG_ACCEL_MOD = autoSpeedModifier;
+        }
     }
 
     @Override
@@ -58,15 +77,16 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
         if(!busy) {
             //Manage driving
-            if(control.isUSE_NAVIGATOR()) ManageDrivingRoadrunner();
-            else ManageDriveMovementCustom();
+            //if(control.isUSE_NAVIGATOR()) ManageDrivingRoadrunner();
+            control.SetDrivePID(turnP, turnI, turnD);
+            ManageDriveMovementCustom();
 
             control.IntakeLoop(); //loop the intake
         }
         //print telemetry
         if(control.isUSE_NAVIGATOR()) {
-            control.GetOrion().PrintVuforiaTelemetry(0);
-            control.GetOrion().PrintTensorflowTelemetry();
+            //control.GetOrion().PrintVuforiaTelemetry(0);
+            //control.GetOrion().PrintTensorflowTelemetry();
         }
 
         telemetry.addLine("*TELEOP DATA*");
@@ -306,9 +326,8 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void RJSPressed(double controllerNumber) {
-        /*if(payloadControllerNumber == 1) payloadControllerNumber = 2;
-        else payloadControllerNumber = 1;*/
-        if(controllerNumber == 1) control.TurnToZero();
+        if(controllerNumber == 1) control.SwitchHeadlessMode();
+        //if(controllerNumber == 1) control.TurnToZero();
     }
 
     @Override

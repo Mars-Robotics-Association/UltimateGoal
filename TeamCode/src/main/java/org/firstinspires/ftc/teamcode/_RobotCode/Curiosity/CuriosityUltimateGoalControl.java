@@ -91,7 +91,7 @@ public class CuriosityUltimateGoalControl extends MecanumBaseControl
     public void SetHome(){orion.SetPose(0,0,0);}
     public void GoToHome(){
         orion.MoveLinear(0,0,0);
-        //orion.TurnTo(0);
+        orion.TurnTo(0);
     }
 
     public void ModifyForPowerShot(){ payload.ModifyForPowerShot();}

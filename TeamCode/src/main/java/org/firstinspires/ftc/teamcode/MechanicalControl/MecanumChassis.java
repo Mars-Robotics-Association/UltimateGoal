@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.MechanicalControl;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Sensors.IMU;
@@ -29,6 +30,9 @@ public class MecanumChassis
     private DcMotor FL;
     private DcMotor RR;
     private DcMotor RL;
+    private boolean rightReversed = false;
+    private boolean leftReversed = false;
+
     //Brake pos
     private int FRBrakePos = 0;
     private int FLBrakePos = 0;
@@ -49,13 +53,15 @@ public class MecanumChassis
     }
 
     //Initializer
-    public MecanumChassis(IMU setImu, DcMotor fr, DcMotor fl, DcMotor rr, DcMotor rl, Telemetry telemetry){
+    public MecanumChassis(IMU setImu, DcMotor fr, DcMotor fl, DcMotor rr, DcMotor rl, Telemetry telemetry, boolean reveseRight, boolean reverseLeft){
         imu = setImu;
         FR = fr;
         FL = fl;
         RR = rr;
         RL = rl;
         RobotTelemetry = telemetry;
+        rightReversed = reveseRight;
+        leftReversed = reverseLeft;
     }
 
     ////STARTUP////
@@ -164,10 +170,24 @@ public class MecanumChassis
     }
     public void SetMotorSpeeds(double FRSpeed, double FLSpeed, double RRSpeed, double RLSpeed){
         //Sets the speeds of the motors
-        FR.setPower(FRSpeed);
-        FL.setPower(FLSpeed);
-        RR.setPower(RRSpeed);
-        RL.setPower(RLSpeed);
+        double fr = FRSpeed;
+        double fl = FLSpeed;
+        double rr = RRSpeed;
+        double rl = RLSpeed;
+
+        if(rightReversed) {
+            fr *= -1;
+            rr *= -1;
+        }
+        if(leftReversed) {
+            fl *= -1;
+            rl *= -1;
+        }
+
+        FR.setPower(fr);
+        FL.setPower(fl);
+        RR.setPower(rr);
+        RL.setPower(rl);
     }
     public void UpdateBrakePos(){
         //Update the values for breaking
