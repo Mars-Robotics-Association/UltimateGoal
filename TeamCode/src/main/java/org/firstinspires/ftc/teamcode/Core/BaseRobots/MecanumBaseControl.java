@@ -121,22 +121,12 @@ public class MecanumBaseControl
         //Called once to brake the robot
         chassis.Brake();
     }
-    public void OdometryDrive(double angle, double speed, double distance) {
-        //Used to autonomously drive a certain distance at a certain angle.
-        //Enter angle, speed, and distance
-    }
-    public void SpotTurn(double angle, double speed) {
-        //Turns the robot on center of the wheel axis using a ramp turn
-        //Enter target angle and turn speed
-    }
-    public void SweepTurn(double angle, double speed, double turnOffset) {
-        //Turns the robot gradually
-        //Enter target angle, speed, and turn offset
-    }
+
     public void MoveTowardsClosestDisc(){ orion.MoveTowardsDiscRaw(discMoveSpeed, discMoveCoefficient); }
     public double TurnTowardsClosestDiscSpeed(){return orion.TurnTowardsDiscSpeed(discTurnCoefficient);}
 
-    public void TurnTowardsVuMark(){orion.TurnTowardsVuMark(1, targetVumarkID, vumarkTurnCoefficient, true);}
+    //public void TurnTowardsVuMark(){orion.TurnTowardsVuMark(1, targetVumarkID, vumarkTurnCoefficient, true);}
+    public void SetOriginToVumark(int vumarkIndex){ orion.SetOriginToVumark(vumarkIndex);}
 
     //TODO: UNIVERSAL GETTERS
     public OrionNavigator GetOrion(){return orion;}

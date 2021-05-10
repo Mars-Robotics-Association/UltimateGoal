@@ -32,6 +32,10 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     public static double turnI = 0.0;
     public static double turnD = 0.01;
 
+    public static double shootX = 60.0;
+    public static double shootY = 0.0;
+    public static double shootH = 180.0;
+
     private double speedMultiplier = 1;
 
     private boolean busy = false;
@@ -85,8 +89,8 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
         }
         //print telemetry
         if(control.isUSE_NAVIGATOR()) {
-            //control.GetOrion().PrintVuforiaTelemetry(0);
-            //control.GetOrion().PrintTensorflowTelemetry();
+            control.GetOrion().PrintVuforiaTelemetry(0);
+            control.GetOrion().PrintTensorflowTelemetry();
         }
 
         telemetry.addLine("*TELEOP DATA*");
@@ -142,17 +146,17 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void XPressed(double controllerNumber) {
-        //Reset gyro and home position
+        //Reset gyro
         control.ResetGyro();
-        control.SetHome();
+        //TODO: remove when done testing
+        control.SetOriginToVumark(0);
     }
 
     @Override
     public void YPressed(double controllerNumber) {
         if(controllerNumber == payloadControllerNumber) {
-            control.SetHome();
+            control.SetOriginToVumark(0);
             control.ShootThree();
-            control.SetHome();
         }
     }
 
@@ -195,7 +199,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void LBPressed(double controllerNumber) {
-        if(controllerNumber == 1) control.GetOrion().Turn(180); //turn 180 degrees
+        if(controllerNumber == 1) control.ToggleIntaking();
     }
 
     @Override
@@ -205,7 +209,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void LTPressed(double controllerNumber) {
-        if(controllerNumber == payloadControllerNumber) control.ToggleIntaking();
+        if(controllerNumber == payloadControllerNumber) control.ReverseIntake();
     }
 
     @Override
@@ -244,6 +248,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void LTReleased(double controllerNumber) {
+        if(controllerNumber == payloadControllerNumber) control.IntakeOn();
     }
 
     @Override
@@ -317,7 +322,13 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
 
     @Override
     public void LJSPressed(double controllerNumber) {
-        if(controllerNumber == 1) control.GoToHome();
+        //if(controllerNumber == 1) control.GoToHome();
+        if(controllerNumber == 1) {
+            control.GetOrion().MoveLinear(shootX, shootY, shootH);
+            control.SetOriginToVumark(0);
+            control.GetOrion().MoveLinear(shootX, shootY, shootH);
+            control.GetOrion().TurnTo(shootH);
+        }
         if(controllerNumber == 2) { //switch payload controllers at runtime
             if(payloadControllerNumber == 1) payloadControllerNumber = 2;
             else payloadControllerNumber = 1;

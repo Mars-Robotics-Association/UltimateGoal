@@ -15,14 +15,14 @@ public class CuriosityPayloadController
     //Starpath
     public static double starpathIntakePosition = 0.0;
     public static double starpathIntervalIntake = 0.078;
-    public static double starpathIntervalShooter = 0.07;
-    public static double starpathShooterPosition = 0.23;
+    public static double starpathIntervalShooter = 0.074;
+    public static double starpathShooterPosition = 0.24;
     public static double starpathStoragePosition = 0.21;
 
     //Shooter
     public static double shooterSpeedMultiplier = -1;
     public static double powerShotSpeedMultiplier = 0.85;
-    public static double timeToShoot = 0.7;
+    public static double timeToShoot = 1;
     public static double timeInitialSpinup = 1;
 
     //Auto Intake
@@ -205,7 +205,7 @@ public class CuriosityPayloadController
     //Intake
     public void IntakeOn(){
         if(starpathPosition == 6) StarpathToIntake();
-        if(starpathPosition >= 2) {//if in storage or shoot position, don't intake to prevent jams
+        if(starpathPosition >= 3) {//if in storage or shoot position, don't intake to prevent jams
             IntakeOff();
             return;
         }
@@ -219,6 +219,7 @@ public class CuriosityPayloadController
     public void IntakeLoop(){
         if(!intakeRunning) return;
 
+
         //Manages auto-intaking
         boolean discInIntake = intakeDetector.getDistance(DistanceUnit.CM) < autoIntakeDistanceCM;
         boolean cooldownDone = lastAutoIntakeTime + autoIntakeCooldown < currentOpmode.getRuntime();
@@ -226,14 +227,9 @@ public class CuriosityPayloadController
             RotateStarpathToNextPos();
             lastAutoIntakeTime = currentOpmode.getRuntime();
 
-           /* if(starpathPosition < 2 && autoIntakeEnabled){
-
-            }*/
-            //discDetectedInIntake = true;
         }
-        //if (!(intakeDetector.getDistance(DistanceUnit.CM) < autoIntakeDistanceCM)) discDetectedInIntake = false; //if a disc isn't detected
 
-        if(starpathPosition >= 4) {//if in storage or shoot position, don't intake to prevent jams
+        if(starpathPosition >= 3) {//if in storage or shoot position, don't intake to prevent jams
             IntakeOff();
             return;
         }
@@ -244,6 +240,10 @@ public class CuriosityPayloadController
         //Stop intake servos
         intakeServo1.setPosition(0.5);
         intakeServo2.setPosition(0.5);
+    }
+    public void ReverseIntake(){
+        intakeServo1.setPosition(0);
+        intakeServo2.setPosition(1);
     }
 
     public void ToggleIntaking(){

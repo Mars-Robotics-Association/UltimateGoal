@@ -79,9 +79,10 @@ public class OrionNavigator
     }
 
     public void AlignToVumark(int vumarkIndex, double xOffset, double yOffset, double headingOffset){
+        if(!control.isUSE_CHASSIS() || !control.isUSE_NAVIGATOR()) return;
+
         double[] vumarkData = vuforiaFront.GetData(vumarkIndex);
         if(vumarkData == null) return;
-        if(!control.isUSE_CHASSIS()) return;
         rr.SetPose(vumarkData[2], vumarkData[0], Math.toRadians(vumarkData[4]));
 
         MoveLinear(xOffset, yOffset, 0);
@@ -92,6 +93,17 @@ public class OrionNavigator
 
         TurnTo(headingOffset);
     }
+
+    public void SetOriginToVumark(int vumarkIndex){ //WORKS- Sets roadrunner's origin point to the origin of a vumark
+        if(!control.isUSE_NAVIGATOR()) return;
+
+        double[] vumarkData = vuforiaFront.GetData(vumarkIndex);
+        if(vumarkData == null) return;
+
+        SetPose(vumarkData[2], vumarkData[0], Math.toRadians(-vumarkData[5]));
+    }
+
+    public double GetVuforiaHeading(int vumarkIndex){ return vuforiaFront.GetData(vumarkIndex)[5]; }
 
 
     /**
@@ -141,10 +153,10 @@ public class OrionNavigator
     public void PrintVuforiaTelemetry(int vumarkCode){
         double[] data = vuforiaFront.GetData(vumarkCode);
         //opMode.telemetry.addData("vumark is ",data[3] + " inches away, "+data[4]+" degrees right, and "+data[0]+" inches high.");
-        opMode.telemetry.addLine("X: " + data[2] + ", Y: " + data[0] + ", Angle: " + data[4]);
+        opMode.telemetry.addLine("X: " + data[2] + ", Y: " + data[0] + ", Heading: " + data[4] + ", Angle: " + data[5]);
     }
     public void PrintTensorflowTelemetry(){
-        opMode.telemetry.addLine("===TF data===");
+        opMode.telemetry.addLine("===TF DATA===");
         tf.PrintTFTelemetry();
     }
 }

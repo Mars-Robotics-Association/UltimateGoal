@@ -34,7 +34,7 @@ public class RoadrunnerControl
 
     public void MoveLine(double x, double y, double heading){ //moves linearly along a line .lineToLinearHeading(new Pose2d(x,y,heading))
         Trajectory traj = drive.trajectoryBuilder(GetCurrentPose())
-                .lineToConstantHeading(new Vector2d(x,y))
+                .lineToLinearHeading(new Pose2d(x,y,heading))
                 .build();
 
         drive.followTrajectory(traj);

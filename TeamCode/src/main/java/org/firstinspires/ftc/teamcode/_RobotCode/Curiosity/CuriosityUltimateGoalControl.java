@@ -91,7 +91,6 @@ public class CuriosityUltimateGoalControl extends MecanumBaseControl
     public void SetHome(){orion.SetPose(0,0,0);}
     public void GoToHome(){
         orion.MoveLinear(0,0,0);
-        orion.TurnTo(0);
     }
 
     public void ModifyForPowerShot(){ payload.ModifyForPowerShot();}
@@ -100,6 +99,7 @@ public class CuriosityUltimateGoalControl extends MecanumBaseControl
     public void IntakeOn(){ payload.IntakeOn();}
     public void IntakeLoop(){ payload.IntakeLoop();}
     public void StopIntake(){ payload.IntakeOff();}
+    public void ReverseIntake(){ payload.ReverseIntake();}
     public void ToggleIntaking(){payload.ToggleIntaking();}
 
     public void RotateStarpathToNextPos(){ payload.RotateStarpathToNextPos();}
