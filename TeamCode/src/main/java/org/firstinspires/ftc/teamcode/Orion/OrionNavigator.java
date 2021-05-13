@@ -100,10 +100,10 @@ public class OrionNavigator
         double[] vumarkData = vuforiaFront.GetData(vumarkIndex);
         if(vumarkData == null) return;
 
-        SetPose(vumarkData[2], vumarkData[0], Math.toRadians(-vumarkData[5]));
+        SetPose(vumarkData[2], vumarkData[0], Math.toRadians(-vumarkData[5]-180));
     }
 
-    public double GetVuforiaHeading(int vumarkIndex){ return vuforiaFront.GetData(vumarkIndex)[5]; }
+    public double GetVuforiaBearing(int vumarkIndex){ return vuforiaFront.GetData(vumarkIndex)[4]; }
 
 
     /**
@@ -153,7 +153,7 @@ public class OrionNavigator
     public void PrintVuforiaTelemetry(int vumarkCode){
         double[] data = vuforiaFront.GetData(vumarkCode);
         //opMode.telemetry.addData("vumark is ",data[3] + " inches away, "+data[4]+" degrees right, and "+data[0]+" inches high.");
-        opMode.telemetry.addLine("X: " + data[2] + ", Y: " + data[0] + ", Heading: " + data[4] + ", Angle: " + data[5]);
+        opMode.telemetry.addLine("X: " + data[2] + ", Y: " + data[0] + ", Bearing: " + data[4] + ", Heading: " + data[5]);
     }
     public void PrintTensorflowTelemetry(){
         opMode.telemetry.addLine("===TF DATA===");

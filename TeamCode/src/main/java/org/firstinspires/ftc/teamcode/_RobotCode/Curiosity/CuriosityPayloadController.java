@@ -118,9 +118,9 @@ public class CuriosityPayloadController
         ShooterOn();
 
         ShootOne();
-        //StopShooter(); //Stop at end
+
+        StopShooter(); //Stop at end
         shootRoutineRunning = false;
-        ShooterOn();
     }
     public void ShootOne(){
         stopShooterOverride = false;

@@ -32,9 +32,10 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     public static double turnI = 0.0;
     public static double turnD = 0.01;
 
-    public static double shootX = 60.0;
-    public static double shootY = 0.0;
-    public static double shootH = 180.0;
+    public static double shootX = 75.0;
+    public static double shootY = -10.0;
+    public static double shootH = 0.0;
+    public static double shootBOffset = 0.0;
 
     private double speedMultiplier = 1;
 
@@ -112,12 +113,12 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     private void ManageDriveMovementCustom() {
         //MOVE if left joystick magnitude > 0.1
         if (controllerInput1.CalculateLJSMag() > 0.1) {
-            control.RawDrive(controllerInput1.CalculateLJSAngle(), controllerInput1.CalculateLJSMag() * driveSpeed, controllerInput1.GetRJSX() * turnSpeed);//drives at (angle, speed, turnOffset)
+            control.RawDrive(controllerInput1.CalculateLJSAngle(), controllerInput1.CalculateLJSMag() * driveSpeed * speedMultiplier, controllerInput1.GetRJSX() * turnSpeed * speedMultiplier);//drives at (angle, speed, turnOffset)
             telemetry.addData("Moving at ", controllerInput1.CalculateLJSAngle());
         }
         //TURN if right joystick magnitude > 0.1 and not moving
         else if (Math.abs(controllerInput1.GetRJSX()) > 0.1) {
-            control.RawTurn(controllerInput1.GetRJSX() * turnSpeed);//turns at speed according to rjs1
+            control.RawTurn(controllerInput1.GetRJSX() * turnSpeed * speedMultiplier);//turns at speed according to rjs1
             telemetry.addData("Turning", true);
         }
         else {
@@ -131,7 +132,6 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     public void APressed(double controllerNumber) {
         if(controllerNumber == 1) {
             if (speedMultiplier == 1) speedMultiplier = 0.5;
-            //else if (speedMultiplier == 0.5) speedMultiplier = 0.25;
             else speedMultiplier = 1;
         }
     }
@@ -141,15 +141,12 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
         /*if(controllerNumber == payloadControllerNumber){
             control.ModifyForPowerShot();
         }*/
-        control.ModifyForPowerShot();
+        if(controllerNumber == 1) control.ResetGyro();
     }
 
     @Override
     public void XPressed(double controllerNumber) {
-        //Reset gyro
-        control.ResetGyro();
-        //TODO: remove when done testing
-        control.SetOriginToVumark(0);
+        if(controllerNumber == 1) control.SetOriginToVumark(0);
     }
 
     @Override
@@ -325,9 +322,10 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
         //if(controllerNumber == 1) control.GoToHome();
         if(controllerNumber == 1) {
             control.GetOrion().MoveLinear(shootX, shootY, shootH);
+            control.ShooterOn();
+            control.GetOrion().Turn(control.GetOrion().GetVuforiaBearing(0)+shootBOffset);
             control.SetOriginToVumark(0);
-            control.GetOrion().MoveLinear(shootX, shootY, shootH);
-            control.GetOrion().TurnTo(shootH);
+
         }
         if(controllerNumber == 2) { //switch payload controllers at runtime
             if(payloadControllerNumber == 1) payloadControllerNumber = 2;
