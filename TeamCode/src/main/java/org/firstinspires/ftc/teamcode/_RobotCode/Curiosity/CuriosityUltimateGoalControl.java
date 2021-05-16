@@ -93,6 +93,17 @@ public class CuriosityUltimateGoalControl extends MecanumBaseControl
         orion.MoveLinear(0,0,0);
     }
 
+    public void Powershot(){
+        orion.SetOriginToVumark(0);
+        orion.MoveLinear(65,-16,0);
+        orion.TurnTo(0);
+        ShootOne();
+        orion.TurnTo(-12);
+        ShootOne();
+        orion.TurnTo(12);
+        ShootOne();
+    }
+
     public void ModifyForPowerShot(){ payload.ModifyForPowerShot();}
     public void StopModifyForPowerShot(){ payload.StopModifyForPowerShot();}
 
