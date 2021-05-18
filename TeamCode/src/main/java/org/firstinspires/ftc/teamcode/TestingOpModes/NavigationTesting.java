@@ -52,7 +52,7 @@ public class NavigationTesting extends LinearOpMode {
         control.StarpathToStorage();
 
         //Move to where it can see discs
-        orion.MoveLinear(18, 4, 0);
+        orion.MoveLine(18, 4, 0);
 
         //wait a bit for it to see discs
         sleep(500);//wait for tensorflow to detect discs

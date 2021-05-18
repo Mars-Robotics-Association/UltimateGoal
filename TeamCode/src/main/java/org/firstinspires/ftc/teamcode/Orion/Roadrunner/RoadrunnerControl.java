@@ -40,6 +40,14 @@ public class RoadrunnerControl
         drive.followTrajectory(traj);
     }
 
+    public void MoveLine(double x, double y){ //moves linearly along a line .lineToLinearHeading(new Pose2d(x,y,heading))
+        Trajectory traj = drive.trajectoryBuilder(GetCurrentPose())
+                .lineTo(new Vector2d(x,y))
+                .build();
+
+        drive.followTrajectory(traj);
+    }
+
     public void MoveSplineConstantHeading(double x, double y, double endTangent, boolean reverse){
         Trajectory traj = drive.trajectoryBuilder(GetCurrentPose(), reverse)
                 .splineToConstantHeading(new Vector2d(x,y), endTangent)

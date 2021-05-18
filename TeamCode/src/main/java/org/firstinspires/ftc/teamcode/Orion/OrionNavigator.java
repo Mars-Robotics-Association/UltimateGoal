@@ -62,7 +62,8 @@ public class OrionNavigator
     public void Turn(double angle){rr.Turn(angle);}
     public void MoveSpline(double x, double y, double tangent, boolean reverse){rr.MoveSpline(x,y,tangent, reverse);}
     public void MoveSplineConstHeading(double x, double y, double tangent, boolean reverse){rr.MoveSplineConstantHeading(x,y,tangent, reverse);}
-    public void MoveLinear(double x, double y, double heading){rr.MoveLine(x,y,heading);}
+    public void MoveLine(double x, double y, double heading){rr.MoveLine(x,y,heading);}
+    public void MoveLine(double x, double y){rr.MoveLine(x,y);}
     public void SetPose(double x, double y, double heading){
         if(control.isUSE_CHASSIS())rr.SetPose(x,y,heading);
         cs.SetRobotGlobalPose(x,y,heading);
@@ -85,7 +86,7 @@ public class OrionNavigator
         if(vumarkData == null) return;
         rr.SetPose(vumarkData[2], vumarkData[0], Math.toRadians(vumarkData[4]));
 
-        MoveLinear(xOffset, yOffset, 0);
+        MoveLine(xOffset, yOffset, 0);
 
         vumarkData = vuforiaFront.GetData(vumarkIndex);
         if(vumarkData == null) return;

@@ -322,7 +322,7 @@ public class CuriosityTeleOp extends OpMode implements ControllerInputListener
     public void LJSPressed(double controllerNumber) {
         //if(controllerNumber == 1) control.GoToHome();
         if(controllerNumber == 1) {
-            control.GetOrion().MoveLinear(shootX, shootY, shootH);
+            control.GetOrion().MoveLine(shootX, shootY, shootH);
             control.ShooterOn();
             control.GetOrion().Turn(control.GetOrion().GetVuforiaBearing(0)+shootBOffset);
             control.SetOriginToVumark(0);
