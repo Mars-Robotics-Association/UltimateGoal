@@ -73,7 +73,8 @@ public class CuriosityAutonomous extends LinearOpMode {
 
         if(numberOfDiscs == 0){ //A
             //deposit wobble goal
-            orion.MoveLine(68, -6);
+            orion.MoveLine(68, -12);
+            orion.MoveLine(60, -12);
         }
         else if(numberOfDiscs > 0 && numberOfDiscs < 3){ //B
             //spline to B, deposit
